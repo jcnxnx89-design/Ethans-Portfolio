@@ -1,0 +1,20 @@
+{
+  "name": "ethan-portfolio",
+  "version": "1.0.0",
+  "description": "Ethan's portfolio - filmmaker, web designer, software engineer",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": ["portfolio", "filmmaker", "web design", "three.js"],
+  "author": "Ethan",
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^5.0.0"
+  },
+  "dependencies": {
+    "three": "^0.160.1"
+  }
+}

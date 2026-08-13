@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Ethan</title>
+<meta name="description" content="Ethan — filmmaker, visual storyteller and educator." />
+<meta property="og:title" content="Ethan" />
+<meta property="og:image" content="assets/works/work0.jpg" />
+<meta name="theme-color" content="#ffffff" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23fff'/%3E%3Ctext x='16' y='23' font-family='Helvetica,Arial' font-size='20' font-style='italic' text-anchor='middle' fill='%23000'%3Ek%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Cinzel:wght@600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="is-booting">
+
+<div class="backdrop" aria-hidden="true"></div>
+
+<div class="custom-cursor" id="customCursor" aria-hidden="true">
+  <div class="custom-cursor__dot"></div>
+  <div class="custom-cursor__ring"></div>
+</div>
+
+<div id="boot" class="boot" role="status" aria-label="Loading">
+  <img src="assets/el/swag.png" alt="" class="boot__img" />
+  <div class="boot__bar"><span id="bootFill"></span></div>
+  <div class="boot__pct" id="bootPct">000</div>
+</div>
+
+<div class="ctl">
+  <button class="ctl__b" id="playerToggle" aria-pressed="false">music</button>
+  <button class="ctl__b" id="invertToggle" aria-pressed="false">invert</button>
+</div>
+
+<div class="player" id="player" aria-label="Music player">
+  <div class="player__cover">
+    <img src="assets/audio/Jimmy.png" alt="Jimmy album cover" class="player__img">
+  </div>
+  <button class="player__btn" id="playerPlayPause" aria-label="Play/Pause">
+    <svg viewBox="0 0 24 24" fill="currentColor" class="player__icon-play">
+      <polygon points="5 3 19 12 5 21 5 3"></polygon>
+    </svg>
+    <svg viewBox="0 0 24 24" fill="currentColor" class="player__icon-pause" style="display:none">
+      <rect x="6" y="4" width="4" height="16"></rect>
+      <rect x="14" y="4" width="4" height="16"></rect>
+    </svg>
+  </button>
+  <div class="player__volume-control">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="player__volume-icon player__volume-muted" style="display:none">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+      <line x1="23" y1="9" x2="17" y2="15"></line>
+      <line x1="17" y1="9" x2="23" y2="15"></line>
+    </svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="player__volume-icon player__volume-low">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+      <path d="M15 11a3 3 0 0 1 0 2"></path>
+    </svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="player__volume-icon player__volume-high" style="display:none">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+      <path d="M15 9a5 5 0 0 1 0 6"></path>
+      <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+    </svg>
+    <input type="range" class="player__volume-slider" id="playerVolume" min="0" max="100" value="42" aria-label="Volume">
+  </div>
+</div>
+
+<div class="pfp-modal" id="pfpModal" aria-hidden="true">
+  <div class="pfp-modal__backdrop"></div>
+  <div class="pfp-modal__content">
+    <div class="pfp-modal__card">
+      <div class="pfp-modal__header">
+        <h3>Profile</h3>
+        <button class="pfp-modal__close" aria-label="Close">&times;</button>
+      </div>
+      <div class="pfp-modal__body">
+        <svg class="pfp-modal__icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20.317 4.369a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.211.375-.444.864-.607 1.25a18.27 18.27 0 0 0-5.487 0c-.163-.386-.396-.875-.607-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.056 19.9 19.9 0 0 0 5.993 3.03.073.073 0 0 0 .084-.026c.462-.637.873-1.31 1.226-2.019a.077.077 0 0 0-.042-.107 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128c.126-.094.252-.194.372-.293a.075.075 0 0 1 .078-.01c3.928 1.793 8.18 1.793 12.062 0a.075.075 0 0 1 .079.009c.12.099.246.199.372.293a.077.077 0 0 1-.007.128 12.299 12.299 0 0 1-1.873.892.076.076 0 0 0-.041.107c.352.709.763 1.382 1.225 2.02a.073.073 0 0 0 .084.025 19.868 19.868 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-4.718-.838-8.814-3.543-12.46a.06.06 0 0 0-.031-.028zM8.02 15.331c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.969-2.419 2.157-2.419 1.201 0 2.169 1.095 2.157 2.419 0 1.334-.969 2.419-2.157 2.419zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.969-2.419 2.157-2.419 1.201 0 2.169 1.095 2.157 2.419 0 1.334-.956 2.419-2.157 2.419z" fill="rgba(255,255,255,0.8)"/>
+        </svg>
+        <p class="pfp-modal__username">@BannedVariable</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<main id="top">
+
+<!-- ============ 01 · FRONT ============ -->
+<section class="sec sec--dark hero" id="hero">
+  <div class="stage" data-rise>
+    <img src="assets/el/star-a.png" alt="" class="el el--star-a" aria-hidden="true" />
+    <img src="assets/el/star-b.png" alt="" class="el el--star-b" aria-hidden="true" />
+    <img src="assets/el/pfp.png" alt="Profile" class="lay lay--pfp" data-tooltip="@BannedVariable" />
+    <h1 class="lay lay--shutter"><span class="letter" style="--delay:0s">E</span><span class="letter" style="--delay:0.05s">t</span><span class="letter" style="--delay:0.1s">h</span><span class="letter" style="--delay:0.15s">a</span><span class="letter" style="--delay:0.2s">n</span></h1>
+    <p class="lay lay--kif" aria-hidden="true"></p>
+  </div>
+  <a class="cue" href="#work" data-nav aria-label="Scroll to work"><i></i></a>
+</section>
+
+<!-- ============ 02 · WORK ============ -->
+<section class="sec sec--dark machine" id="work">
+  <div class="stage" aria-hidden="true">
+    <img src="assets/el/flower.png" alt="" class="el el--flower" />
+  </div>
+  <div class="machine__stage">
+    <canvas id="pspCanvas"></canvas>
+    <div class="machine__loading" id="pspLoading"><i class="spin" aria-hidden="true"></i></div>
+  </div>
+  <div class="rail" id="rail" aria-live="polite">
+    <b id="railIdx">01</b><i id="railTot">/09</i>
+    <a class="rail__open" id="railOpen" href="#" target="_blank" rel="noopener" aria-label="Open this post">↗</a>
+  </div>
+  <div class="keys" aria-hidden="true"><kbd>←</kbd><kbd>→</kbd><kbd>✕</kbd></div>
+</section>
+
+<!-- ============ 03 · ABOUT ============ -->
+<section class="sec sec--dark about" id="about">
+  <div class="stage">
+    <img src="assets/el/cd-a.png" alt="" class="el el--cd-a" aria-hidden="true" />
+    <img src="assets/el/cd-b.png" alt="" class="el el--cd-b" aria-hidden="true" />
+    <h2 class="lay lay--abouth">About me</h2>
+    <div class="lay lay--bio">
+      <p>I'm Ethan — a web designer, software engineer, and reverse engineer.</p>
+      <p>For web design, I focus on modern tech stacks: Three.js, HTML, and TypeScript to build immersive interactive experiences. For software engineering, I primarily work with C++ — because, as you know, it's superior. For reverse engineering, I specialize in IDA Pro and SQL databases to analyze and understand complex systems.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 · CONTACT ============ -->
+<section class="sec sec--dark contact" id="contact">
+  <div class="stage">
+    <img src="assets/el/dice.png" alt="" class="el el--dice" aria-hidden="true" />
+    <h2 class="lay lay--contact">contact</h2>
+    <p class="lay lay--me" aria-hidden="true">me.</p>
+    <div class="lay lay--icons">
+      <a href="https://www.snapchat.com/@slimeuonthe4th?invite_id=ukMLRTyt&locale=en_US&share_id=SGqj4KgJQ263Y-ViFFcp5A&sid=c8d78025fb5d44798beac2b914d9e236&utm_medium=social&utm_source=ig&utm_content=link_in_bio" target="_blank" rel="noopener" aria-label="Snapchat">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M5.829 4.533c-.6 1.344-.363 3.752-.267 5.436-.648.359-1.48-.271-1.951-.271-.49 0-1.075.322-1.167.802-.066.346.089.85 1.201 1.289.43.17 1.453.37 1.69.928.333.784-1.71 4.403-4.918 4.931-.251.041-.43.265-.416.519.056.975 2.242 1.357 3.211 1.507.099.134.179.7.306 1.131.057.193.204.424.582.424.493 0 1.312-.38 2.738-.144 1.398.233 2.712 2.215 5.235 2.215 2.345 0 3.744-1.991 5.09-2.215.779-.129 1.448-.088 2.196.058.515.101.977.157 1.124-.349.129-.437.208-.992.305-1.123.96-.149 3.156-.53 3.211-1.505.014-.254-.165-.477-.416-.519-3.154-.52-5.259-4.128-4.918-4.931.236-.557 1.252-.755 1.69-.928.814-.321 1.222-.716 1.213-1.173-.011-.585-.715-.934-1.233-.934-.527 0-1.284.624-1.897.286.096-1.698.332-4.095-.267-5.438-1.135-2.543-3.66-3.829-6.184-3.829-2.508 0-5.014 1.268-6.158 3.833z"/>
+        </svg>
+      </a>
+      <a href="https://www.instagram.com/staticbloodline/?hl=en" target="_blank" rel="noopener" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+          <circle cx="17.5" cy="6.5" r="1.5"></circle>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- preload=auto, not none: the track is set rolling muted from the first frame,
+     so it is buffered and ready to be unmuted the instant the visitor clicks -->
+<audio id="bgAudio" src="assets/audio/theme.mp3" loop preload="auto" playsinline></audio>
+
+<script type="importmap">
+{ "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.1/examples/jsm/"
+} }
+</script>
+<script src="js/data.js"></script>
+<script src="js/contours.js"></script>
+<script src="js/main.js"></script>
+<script src="js/track.js"></script>
+<script type="module" src="js/psp.js"></script>
+</body>
+</html>
