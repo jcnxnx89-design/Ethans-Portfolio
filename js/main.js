@@ -248,8 +248,9 @@ function updatePlayerDisplay() {
 
   if (playerVolume) playerVolume.addEventListener('input', function () {
     if (!audio) return;
-    VOL = playerVolume.value / 100;
-    audio.volume = VOL;
+    var newVol = parseFloat(playerVolume.value) / 100;
+    VOL = newVol;
+    audio.volume = newVol;
     updateVolumeIcon();
   });
 
@@ -266,12 +267,13 @@ function updatePlayerDisplay() {
     }
   });
 
-  var soundOnByDefault = true;
-  try { if (sessionStorage.getItem('sk_sound') === '0') soundOnByDefault = false; } catch (e) {}
+  var soundOnByDefault = false;
+  try { if (sessionStorage.getItem('sk_sound') === '1') soundOnByDefault = true; } catch (e) {}
 
   if (audio && soundOnByDefault) {
     wanted = true;
     reflect();
+    if (playerVolume) playerVolume.value = 5;
     goAudible().then(function (ok) {
       if (ok) return;
       rollSilently();
