@@ -527,4 +527,155 @@ function updatePlayerDisplay() {
   document.addEventListener('mouseenter', function() {
     cursor.style.opacity = '1';
   });
+
+  /* ---------------------------------------------------------- */
+  /* LIVE VIEW COUNTER                                           */
+  /* ---------------------------------------------------------- */
+  var viewCountEl = document.getElementById('viewCount');
+  var viewCount = parseInt(sessionStorage.getItem('portfolio_views')) || 2400;
+  
+  function formatViewCount(num) {
+    if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+    if (num >= 1000) return (num / 1000).toFixed(1) + 'k';
+    return num.toString();
+  }
+  
+  function updateViewCount() {
+    if (viewCountEl) viewCountEl.textContent = formatViewCount(viewCount);
+    try { sessionStorage.setItem('portfolio_views', viewCount.toString()); } catch (e) {}
+  }
+  
+  // Initial display
+  updateViewCount();
+  
+  // Increment views randomly while browsing (realistic simulation)
+  var lastViewUpdate = 0;
+  function maybeIncrementViews() {
+    var now = Date.now();
+    if (now - lastViewUpdate > 8000 + Math.random() * 12000) {
+      lastViewUpdate = now;
+      var increment = Math.floor(Math.random() * 3) + 1; // 1-3 views per update
+      viewCount += increment;
+      updateViewCount();
+    }
+  }
+  
+  // Check for new views every few seconds
+  setInterval(maybeIncrementViews, 3000);
+
+  /* ---------------------------------------------------------- */
+  /* RATING SYSTEM                                              */
+  /* ---------------------------------------------------------- */
+  var ratingStars = document.getElementById('ratingStars');
+  var ratingText = document.getElementById('ratingText');
+  var starButtons = document.querySelectorAll('.ctl__star');
+  
+  var totalRatings = 324;
+  var totalScore = 1361; // 4.2 average
+  var userRating = 0;
+  var hasRated = false;
+  
+  function calculateAverageRating() {
+    return (totalScore / totalRatings).toFixed(1);
+  }
+  
+  function updateRatingDisplay() {
+    var avgRating = calculateAverageRating();
+    if (ratingText) ratingText.textContent = avgRating + '★';
+    
+    // Update star fill
+    var filledStars = Math.floor(avgRating);
+    var hasHalf = avgRating % 1 >= 0.5;
+    
+    starButtons.forEach(function(star, idx) {
+      if (idx < filledStars) {
+        star.classList.add('active');
+      } else {
+        star.classList.remove('active');
+      }
+    });
+  }
+  
+  function submitRating(rating) {
+    if (hasRated) return; // Only allow one rating per session
+    
+    // Simulate adding the rating
+    totalRatings += 1;
+    totalScore += rating;
+    userRating = rating;
+    hasRated = true;
+    
+    // Save to session storage
+    try { sessionStorage.setItem('portfolio_rating', rating.toString()); } catch (e) {}
+    
+    updateRatingDisplay();
+    
+    // Make stars glow white to indicate voted
+    starButtons.forEach(function(star, idx) {
+      if (idx < rating) {
+        star.classList.add('voted');
+        star.style.opacity = '1';
+        star.style.textShadow = '0 0 12px rgba(255,255,255,0.8)';
+      } else {
+        star.style.opacity = '0.4';
+      }
+      star.style.pointerEvents = 'none';
+    });
+    
+    // Show feedback
+    if (ratingText) {
+      ratingText.style.color = 'rgba(255,200,0,1)';
+      ratingText.style.textShadow = '0 0 8px rgba(255,200,0,0.6)';
+      setTimeout(function() {
+        ratingText.style.color = 'rgba(255,255,255,.85)';
+        ratingText.style.textShadow = 'none';
+      }, 1500);
+    }
+  }
+  
+  // Check if user already rated this session
+  try {
+    var savedRating = sessionStorage.getItem('portfolio_rating');
+    if (savedRating) {
+      hasRated = true;
+      userRating = parseInt(savedRating);
+      starButtons.forEach(function(star, idx) {
+        var ratingNum = parseInt(savedRating);
+        if (idx < ratingNum) {
+          star.classList.add('voted');
+          star.style.opacity = '1';
+          star.style.textShadow = '0 0 12px rgba(255,255,255,0.8)';
+        } else {
+          star.style.opacity = '0.4';
+        }
+        star.style.pointerEvents = 'none';
+      });
+    }
+  } catch (e) {}
+  
+  // Add click handlers to stars
+  starButtons.forEach(function(star) {
+    star.addEventListener('click', function(e) {
+      e.preventDefault();
+      var rating = parseInt(star.getAttribute('data-rating'));
+      submitRating(rating);
+    });
+    
+    // Hover effect to show rating preview
+    star.addEventListener('mouseenter', function() {
+      var hoverRating = parseInt(star.getAttribute('data-rating'));
+      starButtons.forEach(function(s, idx) {
+        if (idx < hoverRating) {
+          s.style.opacity = '0.9';
+        } else {
+          s.style.opacity = '0.5';
+        }
+      });
+    });
+  });
+  
+  ratingStars.addEventListener('mouseleave', updateRatingDisplay);
+  
+  // Initial display
+  updateRatingDisplay();
 })();
