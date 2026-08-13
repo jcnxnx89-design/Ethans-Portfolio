@@ -149,6 +149,17 @@ body.is-invert .boot{--el-inv:1}
 .ctl__b::after{content:'';position:absolute;left:0;right:100%;bottom:.1rem;height:1px;background:currentColor;transition:right .35s var(--ease)}
 .ctl__b:hover::after,.ctl__b[aria-pressed="true"]::after{right:0}
 
+.ctl__socials{
+  display:flex;gap:.4rem;margin-top:.3rem;padding-top:.4rem;border-top:1px solid rgba(255,255,255,.2);
+}
+.ctl__social-icon{
+  width:16px;height:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1);
+  opacity:.7;
+}
+.ctl__social-icon:hover{opacity:1;transform:translateY(-2px)}
+.ctl__social-icon svg{width:100%;height:100%;stroke:currentColor;fill:none}
+
 /* ============ MUSIC PLAYER (MINIMAL) ============ */
 .player{
   position:fixed;right:var(--gutter);top:var(--gutter);z-index:94;
@@ -509,23 +520,6 @@ kbd{font-family:var(--f-vcr);font-size:.8rem;border:1px solid currentColor;opaci
     z-index:10;
     position:relative;
   }
-  .lay--icons{
-    left:50%;
-    transform:translateX(-50%);
-    width:auto;
-    top:78cqh;
-    gap:8%;
-    z-index:10;
-    position:relative;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-  }
-  .lay--icons svg{width:100%;height:auto;stroke:currentColor;display:block;transition:transform .4s var(--ease);fill:currentColor}
-  .lay--icons a{display:flex;align-items:center;justify-content:center;opacity:1}
-  .lay--icons a:first-child{width:clamp(48px, 14cqw, 70px)}
-  .lay--icons a:last-child{width:clamp(42px, 12cqw, 60px)}
-  .lay--icons a:hover svg{transform:translateY(-4px)}
 }
 
 /* ============ PROFILE MODAL (GLASSMORPHIC) ============ */
