@@ -240,11 +240,19 @@ function updatePlayerDisplay() {
     if (!audio) return;
     if (audible && !audio.paused) {
       audio.pause();
+      updatePlayPauseIcon();
     } else {
-      audio.play();
+      audible = true;
+      var p = audio.play();
+      if (p && p.catch) p.catch(function () {});
+      updatePlayPauseIcon();
     }
-    updatePlayPauseIcon();
   });
+
+  if (audio) {
+    audio.addEventListener('play', updatePlayPauseIcon);
+    audio.addEventListener('pause', updatePlayPauseIcon);
+  }
 
   if (playerVolume) playerVolume.addEventListener('input', function () {
     if (!audio) return;
