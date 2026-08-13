@@ -715,7 +715,8 @@ function init() {
     else if (role === 'up') select(0);
     else if (role === 'down') select(WORKS.length - 1);
     else if (role === 'cross') {} // do nothing
-    else if (role === 'start' || role === 'screen') open();
+    else if (role === 'start') open();
+    else if (role === 'screen') {} // do nothing - don't redirect when clicking video
     else if (role === 'circle') select(current - 1);
     else if (role === 'triangle') select(current + 1);
     else if (role === 'square' || role === 'select' || role === 'home') {
