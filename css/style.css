@@ -513,13 +513,19 @@ kbd{font-family:var(--f-vcr);font-size:.8rem;border:1px solid currentColor;opaci
     left:50%;
     transform:translateX(-50%);
     width:auto;
-    top:82cqh;
+    top:78cqh;
     gap:8%;
     z-index:10;
     position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
   }
-  .lay--icons a:first-child{width:clamp(40px, 12cqw, 60px)}
-  .lay--icons a:last-child{width:clamp(35px, 10cqw, 50px)}
+  .lay--icons svg{width:100%;height:auto;stroke:currentColor;display:block;transition:transform .4s var(--ease);fill:currentColor}
+  .lay--icons a{display:flex;align-items:center;justify-content:center;opacity:1}
+  .lay--icons a:first-child{width:clamp(48px, 14cqw, 70px)}
+  .lay--icons a:last-child{width:clamp(42px, 12cqw, 60px)}
+  .lay--icons a:hover svg{transform:translateY(-4px)}
 }
 
 /* ============ PROFILE MODAL (GLASSMORPHIC) ============ */
