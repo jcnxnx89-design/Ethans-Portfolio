@@ -38,8 +38,16 @@ function init() {
   /* ---------------------------------------------------------- */
   /* RENDERER / SCENE                                            */
   /* ---------------------------------------------------------- */
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
-  renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 2));
+  const renderer = new THREE.WebGLRenderer({ 
+    canvas, 
+    antialias: true, 
+    alpha: true, 
+    powerPreference: 'high-performance',
+    stencil: false,
+    depth: true,
+    logarithmicDepthBuffer: false
+  });
+  renderer.setPixelRatio(window.devicePixelRatio || 1);
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.05;
   renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -883,7 +891,11 @@ function init() {
     const dt = Math.min(0.05, clock.getDelta());
     const t = clock.elapsedTime;
 
-    if (!inView) return;
+    if (!inView) {
+      /* Still render when out of view to maintain smooth animation */
+      composer.render();
+      return;
+    }
 
     /* No entrance animation. The machine is centred and square-on from the
        first frame; the only rotation that ever exists is the user's own drag,

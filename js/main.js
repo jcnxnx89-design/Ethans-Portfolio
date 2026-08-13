@@ -98,7 +98,7 @@
   var playerVolume = document.getElementById('playerVolume');
   
   var wanted = false, fadeTimer = null, audible = false;
-  var VOL = 0.42;
+  var VOL = 0.05;
   var playerOpen = false;
 
 function updatePlayerDisplay() {
@@ -178,12 +178,12 @@ function updatePlayerDisplay() {
     var wasMuted = audio.muted;
     audio.muted = false;
     if (wasMuted) { try { audio.currentTime = 0; } catch (e) {} }
-    audio.volume = 0;
+    audio.volume = VOL;  // Start at quiet volume directly
 
     var p;
     try { p = audio.play(); } catch (e) { p = null; }
     var settle = function (ok) { inFlight = null; return ok; };
-    var win = function () { audible = true; fadeTo(VOL); updatePlayerDisplay(); return settle(true); };
+    var win = function () { audible = true; updatePlayerDisplay(); return settle(true); };
     var lose = function () {
       audio.muted = wasMuted;
       if (wasMuted && audio.paused) rollSilently();
@@ -221,7 +221,7 @@ function updatePlayerDisplay() {
     } else {
       audible = false;
       disarm();
-      fadeTo(0, function () { audio.pause(); });
+      fadeTo(0, function () { audio.pause(); updatePlayerDisplay(); });
     }
   }
 
@@ -255,8 +255,15 @@ function updatePlayerDisplay() {
 
   document.addEventListener('visibilitychange', function () {
     if (!audio) return;
-    if (document.hidden) { audio.pause(); }
-    else if (wanted) { var p = audio.play(); if (p && p.catch) p.catch(function () {}); }
+    if (document.hidden) { 
+      audio.pause();
+      updatePlayPauseIcon();
+    }
+    else if (wanted) { 
+      var p = audio.play(); 
+      if (p && p.catch) p.catch(function () {});
+      updatePlayPauseIcon();
+    }
   });
 
   var soundOnByDefault = true;
