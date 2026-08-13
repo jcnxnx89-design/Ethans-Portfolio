@@ -2,10 +2,12 @@ import { defineConfig } from 'vite'
 
 export default defineConfig({
   root: './',
+  publicDir: 'public',
   build: {
     minify: 'esbuild',
     outDir: 'dist',
     emptyOutDir: true,
+    copyPublicDir: true,
     rollupOptions: {
       input: 'index.html',
       output: {
@@ -14,6 +16,7 @@ export default defineConfig({
         }
       }
     },
+    assetsDir: 'assets',
     sourcemap: false,
     target: 'es2020'
   },
