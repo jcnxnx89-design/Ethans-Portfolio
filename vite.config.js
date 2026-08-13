@@ -1,9 +1,13 @@
 import { defineConfig } from 'vite'
 
 export default defineConfig({
+  root: './',
   build: {
     minify: 'esbuild',
+    outDir: 'dist',
+    emptyOutDir: true,
     rollupOptions: {
+      input: 'index.html',
       output: {
         manualChunks: {
           'three': ['three']
